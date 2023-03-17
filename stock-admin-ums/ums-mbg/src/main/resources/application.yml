@@ -1,0 +1,81 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/stock-analy?useUnicode=true&useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    druid:
+      initial-size: 5 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 20 #最大连接数
+      web-stat-filter:
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不统计这些请求数据
+      stat-view-servlet: #访问监控网页的登录用户名和密码
+        login-username: druid
+        login-password: druid
+  redis:
+    host: localhost # Redis服务器地址
+    database: 0 # Redis数据库索引（默认为0）
+    port: 6379 # Redis服务器连接端口
+    password: # Redis服务器连接密码（默认为空）
+    timeout: 300ms # 连接超时时间（毫秒）
+  boot:
+    admin:
+      client:
+        # admin 服务端的地址
+        url: http://localhost:8095
+  main:
+    allow-circular-references: true
+  #    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      # 展示详情
+      show-details: always
+      # 日志记录
+    logfile:
+      external-file: D:/Project/IdeaProjects/ltg-platform/logs/ltg-auth/debug.log
+
+
+mybatis-plus:
+  mapper-locations:
+    - classpath:/mapper/*.xml
+    - classpath*:/mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: ltg-admin-secret #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24*7)
+  tokenHead: Bearer  #JWT负载中拿到开头
+
+redis:
+  database: ltg
+  key:
+    admin: 'ltg:admin'
+    resourceList: 'ltg:resourceList'
+    token: 'ltg:token'
+  expire:
+    common: 86400 # 24小时
+logging:
+  level:
+    root: info #日志配置DEBUG,INFO,WARN,ERROR
+    com.zhyt.ltg.auth: debug
+
+knife4j:
+  enable: true
+  # 是否开启生产屏蔽功能,开启后就访问不到swagger文档
+  production: false
+  # 开启swagger的basic认证功能
+  basic:
+    enable: true
+    username: swagger
+    password: swagger
