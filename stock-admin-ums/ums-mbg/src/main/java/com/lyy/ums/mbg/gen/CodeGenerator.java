@@ -48,7 +48,7 @@ public class CodeGenerator {
                             .disableOpenDir()//禁止打开输出目录 默认值:true
                             .commentDate("yyyy-MM-dd")// 注释日期
                             .dateType(DateType.ONLY_DATE)//定义生成的实体类中日期类型 DateType.ONLY_DATE 默认值: DateType.TIME_PACK
-                            .outputDir(System.getProperty("user.dir") + "/stock-analysis/stock-admin-ums/ums-mbg/src/main/java"); // 指定输出目录 /opt/baomidou/ 默认值: windows:D:// linux or mac : /tmp
+                            .outputDir(System.getProperty("user.dir") + "/src/main/java"); // 指定输出目录 /opt/baomidou/ 默认值: windows:D:// linux or mac : /tmp
                     //System.getProperty("user.dir")为你当前模块的绝对路径
                 })
 
@@ -59,7 +59,7 @@ public class CodeGenerator {
                             .service("service")//Service 包名 默认值:service
                             .mapper("mapper")//Mapper 包名 默认值:mapper
 //                            .moduleName("ums-mbg") // 设置父包模块名 默认值:无
-                            .pathInfo(Collections.singletonMap(OutputFile.xml,System.getProperty("user.dir")+ "/stock-analysis/stock-admin-ums/ums-mbg/src/main/resources/mapper")); // 设置mapperXml生成路径
+                            .pathInfo(Collections.singletonMap(OutputFile.xml,System.getProperty("user.dir")+ "/src/main/resources/mapper")); // 设置mapperXml生成路径
                     //默认存放在mapper的xml下
                 })
 

@@ -12,7 +12,7 @@
 
     <groupId>com.lyy</groupId>
     <artifactId>stock-analysis</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>stock-analysis</name>
 
     <packaging>pom</packaging>
@@ -41,10 +41,14 @@
         <mybatis-spring.version>2.0.7</mybatis-spring.version>
         <mybatis-generator.version>3.5.2</mybatis-generator.version>
         <spring-boot-starter-freemarker.version>3.0.0</spring-boot-starter-freemarker.version>
+        <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
+        <mybatis-plus-annotation.version>3.5.2</mybatis-plus-annotation.version>
+        <project.version>3.5.2</project.version>
     </properties>
 
     <modules>
         <module>stock-admin-ums</module>
+        <module>stock-common</module>
     </modules>
 
     <dependencyManagement>
@@ -142,6 +146,41 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-freemarker</artifactId>
                 <version>${spring-boot-starter-freemarker.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis-plus-annotation.version}</version>
+            </dependency>
+
+
+            <!--项目子模块-->
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-admin-ums</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-common</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

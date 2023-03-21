@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.lyy.stock.common.mybatis.MybatisPlusConfig,com.lyy.stock.common.mybatis.MybatisInterceptor

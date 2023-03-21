@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.lyy</groupId>
         <artifactId>stock-admin-ums</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <description>后端用户服务模块</description>
@@ -29,8 +29,8 @@
 
         <dependency>
             <groupId>com.lyy</groupId>
-            <artifactId>ums-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>ums-mbg</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
