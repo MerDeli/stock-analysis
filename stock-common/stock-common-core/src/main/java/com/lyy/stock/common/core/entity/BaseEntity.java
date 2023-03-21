@@ -1,4 +1,4 @@
-package com.lyy.stock.common.core;
+package com.lyy.stock.common.core.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
