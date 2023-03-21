@@ -1,0 +1,20 @@
+server:
+  port: ${SERVER_PORT:11001}
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  application:
+    name: stock-admin-ums
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${REGISTER_HOST:localhost}:${REGISTER_PORT:8848}
+        group: dev
+        namespace: stock-analysis
+      config:
+        server-addr: ${REGISTER_HOST:localhost}:${REGISTER_PORT:8848}
+        prefix: stock-admin-ums
+        file-extension: yaml
+        group: dev
+        namespace: stock-analysis

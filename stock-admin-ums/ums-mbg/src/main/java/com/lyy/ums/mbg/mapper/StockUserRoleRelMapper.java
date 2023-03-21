@@ -1,7 +1,7 @@
 package com.lyy.ums.mbg.mapper;
 
+import com.lyy.stock.common.mybatis.SuperMapper;
 import com.lyy.ums.mbg.entity.StockUserRoleRel;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2023-03-21
  */
 @Mapper
-public interface StockUserRoleRelMapper extends BaseMapper<StockUserRoleRel> {
+public interface StockUserRoleRelMapper extends SuperMapper<StockUserRoleRel> {
 
 }
