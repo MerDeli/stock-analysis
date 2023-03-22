@@ -43,12 +43,14 @@
         <spring-boot-starter-freemarker.version>3.0.0</spring-boot-starter-freemarker.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
         <mybatis-plus-annotation.version>3.5.2</mybatis-plus-annotation.version>
-        <project.version>3.5.2</project.version>
+        <commons.io.version>2.11.0</commons.io.version>
+        <fastjson.version>2.0.23</fastjson.version>
     </properties>
 
     <modules>
         <module>stock-admin-ums</module>
         <module>stock-common</module>
+        <module>stock-plugin</module>
     </modules>
 
     <dependencyManagement>
@@ -160,6 +162,17 @@
                 <version>${mybatis-plus-annotation.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
 
             <!--项目子模块-->
             <dependency>

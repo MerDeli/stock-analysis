@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.lyy.stock.plugin.nacos.config.NacosAutoConfig

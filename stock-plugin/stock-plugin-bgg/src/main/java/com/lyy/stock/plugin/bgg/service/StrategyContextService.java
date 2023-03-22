@@ -1,0 +1,169 @@
+package com.lyy.stock.plugin.bgg.service;
+
+import com.lyy.stock.plugin.bgg.adapter.BggPluginAdapter;
+import com.lyy.stock.plugin.bgg.context.StrategyContextHolder;
+import com.lyy.stock.plugin.bgg.weight.MapWeightRandom;
+import com.lyy.stock.plugin.common.constant.StockConstant;
+import com.lyy.stock.plugin.common.entity.BlueGreenGray;
+import com.lyy.stock.plugin.common.entity.Condition;
+import com.lyy.stock.plugin.common.entity.Rule;
+import com.lyy.stock.plugin.common.entity.StrategyRelease;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * @Author:
+ * @createTime: 2023/03/22 14:48:02
+ * @version:
+ * @Description:
+ */
+public class StrategyContextService {
+
+    @Autowired
+    private BggPluginAdapter pluginAdapter;
+
+    @Autowired
+    private StrategyContextHolder strategyContextHolder;
+
+    private final Pattern pattern = Pattern.compile(StockConstant.EXPRESSION_REGEX);
+
+    /**
+     * 执行优先级为: 蓝绿路由配置 -> 灰度路由配置 -> 全局兜底路由配置
+     * @return 链路
+     */
+    public String getRouteVersion() {
+        String routeVersion = getConditionBlueGreenRouteVersion();
+        if (StringUtils.isEmpty(routeVersion)) {
+            routeVersion = getConditionGrayRouteVersion();
+        }
+        return routeVersion;
+    }
+
+    /**
+     * 灰度规则匹配
+     * @return 链路
+     */
+    private String getConditionGrayRouteVersion() {
+        String routeKey = null;
+        Rule localRule = pluginAdapter.getRule();
+        if(Objects.nonNull(localRule)){
+            StrategyRelease strategyRelease = localRule.getStrategyRelease();
+            if(Objects.nonNull(strategyRelease)){
+                BlueGreenGray gray = strategyRelease.getGray();
+                routeKey = getRouteKey(gray);
+            }
+        }
+        if(StringUtils.isNotBlank(routeKey)){
+            return localRule.getRoutes().get(getRouteByWeightRandom(routeKey));
+        }
+        return null;
+    }
+    /**
+     * 蓝绿规则匹配
+     * @return 链路
+     */
+    private String getConditionBlueGreenRouteVersion() {
+        String routeKey = null;
+        Rule localRule = pluginAdapter.getRule();
+        if(Objects.nonNull(localRule)){
+            StrategyRelease strategyRelease = localRule.getStrategyRelease();
+            if(Objects.nonNull(strategyRelease)){
+                BlueGreenGray blueGreen = strategyRelease.getBlueGreen();
+                routeKey = getRouteKey(blueGreen);
+            }
+        }
+        if(StringUtils.isNotBlank(routeKey)){
+            return localRule.getRoutes().get(routeKey);
+        }
+        return null;
+    }
+
+    private String getRouteKey(BlueGreenGray gray) {
+        String routeKey = null;
+        if(Objects.nonNull(gray)){
+            List<Condition> conditionList = gray.getConditionList();
+            if(CollectionUtils.isNotEmpty(conditionList)){
+                Condition condition = this.matchingExpressionStrategyCondition(conditionList);
+                if(Objects.nonNull(condition)){
+                    routeKey = condition.getRouteKey();
+                }else {
+                    routeKey = gray.getBasicCondition();
+                }
+            }
+        }
+        return routeKey;
+    }
+
+    /**
+     *
+     * @description  根据权重配比获取具体链路
+     * @param routeKey routeKey
+     * @author huangfubin
+     * @date 2021/10/16
+     * @return java.lang.String
+     */
+
+    private String getRouteByWeightRandom(String routeKey) {
+        String[] routeKeys = routeKey.split(StockConstant.SPLIT_FH);
+        List<Pair<String, Integer>> weightList = new ArrayList<>();
+        for (String key : routeKeys) {
+            String[] route = key.split(StockConstant.SPLIT_DY);
+            weightList.add(new ImmutablePair<>(route[0], Integer.valueOf(route[1])));
+        }
+        return new MapWeightRandom<>(weightList).random();
+    }
+
+    /**
+     *
+     * @description 使用 spring sepl 获取匹配条件的Condition
+     * @param conditionList
+     * @author huangfubin
+     * @date 2021/10/16
+     * @return cn.hfbin.bgg.common.entity.Condition
+     */
+    private Condition matchingExpressionStrategyCondition(List<Condition> conditionList) {
+        for (Condition condition : conditionList) {
+            String expression = condition.getExpression();
+            Map<String, String> map = this.getHeaderToMap(expression);
+            StandardEvaluationContext standardEvaluationContext = new StandardEvaluationContext();
+            standardEvaluationContext.setVariable(StockConstant.EXPRESSION_PREFIX, map);
+            SpelExpressionParser spelExpressionParser = new SpelExpressionParser();
+            Boolean bool = spelExpressionParser.parseExpression(expression).getValue(standardEvaluationContext, Boolean.class);
+            if(null != bool && bool){
+                return condition;
+            }
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @description 根据expression条件，获取条件在请求头对应的值
+     * @param expression expression
+     * @author huangfubin
+     * @date 2021/10/16
+     * @return java.util.Map<java.lang.String,java.lang.String>
+     */
+    private Map<String, String> getHeaderToMap(String expression) {
+        Map<String, String> map = new HashMap<>();
+        Matcher matcher = pattern.matcher(expression);
+        while (matcher.find()) {
+            String group = matcher.group();
+            String name = StringUtils.substringBetween(group, StockConstant.EXPRESSION_SUB_PREFIX, StockConstant.EXPRESSION_SUB_SUFFIX);
+            String value = strategyContextHolder.getHeader(name);
+            if (StringUtils.isNotBlank(value)) {
+                map.put(name, value);
+            }
+        }
+        return map;
+    }
+}
