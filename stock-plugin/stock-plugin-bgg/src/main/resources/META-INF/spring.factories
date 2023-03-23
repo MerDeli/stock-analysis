@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.lyy.stock.plugin.bgg.config.BggAutoConfig,\
+com.lyy.stock.plugin.bgg.config.LoadBalancerConfig

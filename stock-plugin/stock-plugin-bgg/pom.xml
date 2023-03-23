@@ -23,6 +23,11 @@
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.lyy</groupId>
+            <artifactId>stock-plugin-nacos</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
