@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:11001}
+  port: ${SERVER_PORT:11002}
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

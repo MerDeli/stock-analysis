@@ -1,10 +1,12 @@
 package com.lyy.stock.plugin.gateway.route;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson2.JSON;
 import com.lyy.stock.plugin.common.entity.GatewayRouteEntity;
 import com.lyy.stock.plugin.common.future.FutureResolver;
 import com.lyy.stock.plugin.common.thread.ThreadPoolFactory;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,18 +68,104 @@ public class GatewayRouteImpl implements GatewayRoute, ApplicationEventPublisher
     }
 
     @Override
-    public void update(GatewayRouteEntity gatewayStrategyRouteEntity) {
-
+    public void update(GatewayRouteEntity gatewayRouteEntity) {
+        if (Objects.isNull(gatewayRouteEntity)) {
+            log.error("route entity is null");
+            return;
+        }
+        Map<String, RouteDefinition> routeDefinitionMap = this.currentGatewayRoutes();
+        String routeId = gatewayRouteEntity.getId();
+        if (!routeDefinitionMap.containsKey(routeId)) {
+            log.error("route key is exist");
+            return;
+        }
+        RouteDefinition routeDefinition = convertRoute(gatewayRouteEntity);
+        updateGatewayRoute(routeDefinition);
+        log.info("update gateway dynamic route={}", com.alibaba.fastjson.JSON.toJSONString(routeDefinition));
+        applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this));
     }
 
     @Override
     public void delete(String routeId) {
-
+        if (StringUtils.isEmpty(routeId)) {
+            log.error("routeId is null");
+            return;
+        }
+        Map<String, RouteDefinition> routeDefinitionMap = this.currentGatewayRoutes();
+        RouteDefinition routeDefinition = routeDefinitionMap.get(routeId);
+        if (Objects.isNull(routeDefinition)) {
+            log.error("routeId is null");
+            return;
+        }
+        deleteGatewayRoute(routeDefinition);
+        log.info("delete gateway dynamic route for routeId={}", routeId);
+        applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this));
     }
 
     @Override
-    public void updateAll(String gatewayStrategyRouteConfig) {
-
+    public void updateAll(String config) {
+        if (StringUtils.isBlank(config)) {
+            log.warn("gatewayRouteEntity is null");
+            return;
+        }
+        List<GatewayRouteEntity> gatewayRouteEntityList = JSONArray.parseArray(config, GatewayRouteEntity.class);
+        if (CollectionUtils.isEmpty(gatewayRouteEntityList)) {
+            log.warn("gatewayRouteEntity is null");
+            return;
+        }
+        Map<Object, Long> listMap = gatewayRouteEntityList.stream().collect(Collectors.groupingBy(GatewayRouteEntity::getId, Collectors.counting()));
+        long repeatCount = listMap.entrySet().stream().filter(entry -> entry.getValue() > 1).map(Map.Entry::getKey).count();
+        if (repeatCount > 0) {
+            log.warn("gateway routeId is repeat");
+            return;
+        }
+        Map<String, RouteDefinition> dynamicRouteDefinitionMap = gatewayRouteEntityList.stream().collect(Collectors.toMap(GatewayRouteEntity::getId, this::convertRoute));
+        Map<String, RouteDefinition> currentRouteDefinitionMap = currentGatewayRoutes();
+        List<RouteDefinition> addRouteDefinitionList = new ArrayList<>(dynamicRouteDefinitionMap.size());
+        List<RouteDefinition> updateRouteDefinitionList = new ArrayList<>(dynamicRouteDefinitionMap.size());
+        List<RouteDefinition> deleteRouteDefinitionList = new ArrayList<>(dynamicRouteDefinitionMap.size());
+        for (Map.Entry<String, RouteDefinition> entry : dynamicRouteDefinitionMap.entrySet()) {
+            String routeId = entry.getKey();
+            RouteDefinition routeDefinition = entry.getValue();
+            if (!currentRouteDefinitionMap.containsKey(routeId)) {
+                addRouteDefinitionList.add(routeDefinition);
+            }
+        }
+        for (Map.Entry<String, RouteDefinition> entry : dynamicRouteDefinitionMap.entrySet()) {
+            String routeId = entry.getKey();
+            RouteDefinition routeDefinition = entry.getValue();
+            if (currentRouteDefinitionMap.containsKey(routeId)) {
+                RouteDefinition currentRouteDefinition = currentRouteDefinitionMap.get(routeId);
+                if (!currentRouteDefinition.equals(routeDefinition)) {
+                    updateRouteDefinitionList.add(routeDefinition);
+                }
+            }
+        }
+        for (Map.Entry<String, RouteDefinition> entry : currentRouteDefinitionMap.entrySet()) {
+            String routeId = entry.getKey();
+            RouteDefinition routeDefinition = entry.getValue();
+            if (!dynamicRouteDefinitionMap.containsKey(routeId)) {
+                deleteRouteDefinitionList.add(routeDefinition);
+            }
+        }
+        for (RouteDefinition routeDefinition : addRouteDefinitionList) {
+            addGatewayRoute(routeDefinition);
+        }
+        for (RouteDefinition routeDefinition : updateRouteDefinitionList) {
+            updateGatewayRoute(routeDefinition);
+        }
+        for (RouteDefinition routeDefinition : deleteRouteDefinitionList) {
+            deleteGatewayRoute(routeDefinition);
+        }
+        log.info("gateway dynamic routes update");
+        log.info("total  count -> {}", gatewayRouteEntityList.size());
+        log.info("add    count -> {}", addRouteDefinitionList.size());
+        log.info("delete count -> {}", deleteRouteDefinitionList.size());
+        log.info("update count -> {}", updateRouteDefinitionList.size());
+        if (addRouteDefinitionList.isEmpty() && updateRouteDefinitionList.isEmpty() && deleteRouteDefinitionList.isEmpty()) {
+            return;
+        }
+        applicationEventPublisher.publishEvent(new RefreshRoutesEvent(this));
     }
 
     @Override
