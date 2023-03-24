@@ -73,7 +73,7 @@ public class LogAspect {
     /**
      * 扫描controller层下面所有方法和类切带有Log注解的
      */
-    @Pointcut("execution(public * com.lyy.stock.*.controller.*.*(..)) &&" +
+    @Pointcut("execution(public * com.lyy.*.controller.*.*(..)) &&" +
             "@annotation(com.lyy.stock.common.log.annotation.Log)")
     public void logAspect() {
     }

@@ -54,6 +54,7 @@
         <module>stock-common</module>
         <module>stock-plugin</module>
         <module>stock-gateway</module>
+        <module>stock-log</module>
     </modules>
 
     <dependencyManagement>
