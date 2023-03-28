@@ -1,13 +1,13 @@
-package com.lyy.stock.log.server;
+package com.lyy.log.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StockLogServerApplication {
+public class StockLogApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(StockLogServerApplication.class, args);
+        SpringApplication.run(StockLogApiApplication.class, args);
     }
 
 }

@@ -4,35 +4,38 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.lyy</groupId>
-        <artifactId>stock-log</artifactId>
+        <artifactId>stock-common</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>log-common</artifactId>
-    <name>log-common</name>
+    <artifactId>stock-common-token</artifactId>
+    <name>stock-common-token</name>
+    <description>token模块</description>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.lyy</groupId>
             <artifactId>stock-common-core</artifactId>
         </dependency>
     </dependencies>
+
 
 
 </project>

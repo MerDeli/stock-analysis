@@ -10,7 +10,7 @@
 
     <artifactId>log-mbg</artifactId>
     <name>log-mbg</name>
-    <description>Demo project for Spring Boot</description>
+    <description>日志模块</description>
 
     <dependencies>
         <dependency>
@@ -22,6 +22,22 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+
+        <!-- 添加模板引擎，thymeleaf 还有freemarker都是模板引擎 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lyy</groupId>
+            <artifactId>stock-common-mybatis</artifactId>
         </dependency>
     </dependencies>
 

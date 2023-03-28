@@ -18,6 +18,8 @@
         <module>stock-common-mybatis</module>
         <module>stock-common-core</module>
         <module>stock-common-swagger</module>
+        <module>stock-common-log</module>
+        <module>stock-common-token</module>
     </modules>
 
 </project>

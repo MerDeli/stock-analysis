@@ -7,8 +7,8 @@
         <artifactId>stock-log</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>stock-log-server</artifactId>
-    <name>stock-log-server</name>
+    <artifactId>log-server</artifactId>
+    <name>log-server</name>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -21,6 +21,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lyy</groupId>
+            <artifactId>ums-mbg</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
