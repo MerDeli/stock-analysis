@@ -47,6 +47,7 @@
         <fastjson.version>2.0.23</fastjson.version>
         <ip2region.version>2.7.0</ip2region.version>
         <bitwalker.version>1.21</bitwalker.version>
+        <alibaba-sentinel.version>2021.1</alibaba-sentinel.version>
     </properties>
 
     <modules>
@@ -189,6 +190,12 @@
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${bitwalker.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+                <version>${alibaba-sentinel.version}</version>
             </dependency>
 
             <!--项目子模块-->

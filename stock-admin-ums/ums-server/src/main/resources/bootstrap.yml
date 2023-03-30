@@ -18,3 +18,8 @@ spring:
         file-extension: yaml
         group: dev
         namespace: stock-analysis
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+  main:
+    allow-circular-references: true
