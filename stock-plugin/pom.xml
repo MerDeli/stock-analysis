@@ -19,6 +19,7 @@
         <module>stock-plugin-common</module>
         <module>stock-plugin-bgg</module>
         <module>stock-plugin-nacos</module>
+        <module>stock-plugin-sentinel</module>
     </modules>
 
     <dependencyManagement>
