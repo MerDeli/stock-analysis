@@ -235,6 +235,16 @@
                 <artifactId>stock-common-token</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-common-cache</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

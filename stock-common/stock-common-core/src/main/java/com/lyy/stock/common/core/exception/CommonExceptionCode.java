@@ -27,6 +27,7 @@ public enum CommonExceptionCode implements ServiceCode {
     TENANT_AUTH_NULL(701, "租户未开通此端权限"),
     OPT_ERROR(702, "演示环境不可操作"),
 
+    LOGIN_ERROR(800, "登录失败"),
 
 
     HTTP_REQUEST_ERROR(5000,"请求方式错误"),

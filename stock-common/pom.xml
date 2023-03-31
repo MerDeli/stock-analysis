@@ -20,6 +20,7 @@
         <module>stock-common-swagger</module>
         <module>stock-common-log</module>
         <module>stock-common-token</module>
+        <module>stock-common-cache</module>
     </modules>
 
 </project>
