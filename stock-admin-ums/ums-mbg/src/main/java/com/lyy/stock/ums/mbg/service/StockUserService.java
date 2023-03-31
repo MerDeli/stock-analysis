@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface StockUserService extends IService<StockUser> {
 
+    StockUser getAdminByUsername(String username)
+
+    /**
+     * 获取用户信息
+     */
+    UserDetails loadUserByUsername(String username);
 }

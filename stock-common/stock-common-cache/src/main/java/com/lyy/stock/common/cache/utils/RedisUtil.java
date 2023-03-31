@@ -585,22 +585,22 @@ public class RedisUtil {
      * @param keyPrefix key前缀
      * @return
      */
-    private Set<String> keys(String keyPrefix) {
-        String realKey = keyPrefix + "*";
-        try {
-            return redisTemplate.execute((RedisCallback<Set<String>>) connection -> {
-                Set<String> binaryKeys = new HashSet<>();
-                Cursor<byte[]> cursor = connection.scan(new ScanOptions.ScanOptionsBuilder().match(realKey).count(Integer.MAX_VALUE).build());
-                while (cursor.hasNext()) {
-                    binaryKeys.add(new String(cursor.next()));
-                }
-                return binaryKeys;
-            });
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    private Set<String> keys(String keyPrefix) {
+//        String realKey = keyPrefix + "*";
+//        try {
+//            return redisTemplate.execute((RedisCallback<Set<String>>) connection -> {
+//                Set<String> binaryKeys = new HashSet<>();
+//                Cursor<byte[]> cursor = connection.scan(new ScanOptions.ScanOptionsBuilder().match(realKey).count(Integer.MAX_VALUE).build());
+//                while (cursor.hasNext()) {
+//                    binaryKeys.add(new String(cursor.next()));
+//                }
+//                return binaryKeys;
+//            });
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     /**
      * [数据量多时候，不推荐使用]删除指定前缀的一系列key
@@ -608,13 +608,13 @@ public class RedisUtil {
      *
      * @param keyPrefix key前缀
      */
-    public void removeAll(String keyPrefix) {
-        try {
-            Set<String> keys = keys(keyPrefix);
-            redisTemplate.delete(keys);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-    }
+//    public void removeAll(String keyPrefix) {
+//        try {
+//            Set<String> keys = keys(keyPrefix);
+//            redisTemplate.delete(keys);
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//        }
+//    }
     // end ***************************批量操作key***************************
 }

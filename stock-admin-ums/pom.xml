@@ -21,5 +21,14 @@
     </modules>
 
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>ums-mbg</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
