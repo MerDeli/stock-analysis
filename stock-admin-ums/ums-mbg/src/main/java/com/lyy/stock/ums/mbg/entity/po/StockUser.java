@@ -1,4 +1,4 @@
-package com.lyy.stock.ums.mbg.entity;
+package com.lyy.stock.ums.mbg.entity.po;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;

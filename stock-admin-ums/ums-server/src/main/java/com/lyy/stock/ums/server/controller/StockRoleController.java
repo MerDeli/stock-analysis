@@ -1,6 +1,6 @@
 package com.lyy.stock.ums.server.controller;
 
-import com.lyy.stock.ums.mbg.entity.StockRole;
+import com.lyy.stock.ums.mbg.entity.po.StockRole;
 import com.lyy.stock.ums.mbg.service.StockRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

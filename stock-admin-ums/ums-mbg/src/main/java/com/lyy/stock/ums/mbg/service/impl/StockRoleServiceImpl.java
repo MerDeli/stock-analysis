@@ -1,6 +1,6 @@
 package com.lyy.stock.ums.mbg.service.impl;
 
-import com.lyy.stock.ums.mbg.entity.StockRole;
+import com.lyy.stock.ums.mbg.entity.po.StockRole;
 import com.lyy.stock.ums.mbg.service.StockRoleService;
 import com.lyy.stock.ums.mbg.mapper.StockRoleMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

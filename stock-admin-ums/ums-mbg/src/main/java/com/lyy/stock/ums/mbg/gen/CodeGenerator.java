@@ -53,9 +53,9 @@ public class CodeGenerator {
                 })
 
                 .packageConfig(builder -> {
-                    builder.parent("com.lyy.ums.mbg") // 父包模块名 默认值:com.baomidou
+                    builder.parent("com.lyy.stock.ums.mbg") // 父包模块名 默认值:com.baomidou
                             .controller("controller")//Controller 包名 默认值:controller
-                            .entity("entity")//Entity 包名 默认值:entity
+                            .entity("entity.po")//Entity 包名 默认值:entity
                             .service("service")//Service 包名 默认值:service
                             .mapper("mapper")//Mapper 包名 默认值:mapper
 //                            .moduleName("ums-mbg") // 设置父包模块名 默认值:无
@@ -64,7 +64,7 @@ public class CodeGenerator {
                 })
 
                 .strategyConfig(builder -> {
-                    builder.addInclude("stock_user","stock_role","stock_user_role_rel") // 设置需要生成的表名 可边长参数“user”, “user1”
+                    builder.addInclude("stock_role_resource_rel") // 设置需要生成的表名 可边长参数“user”, “user1”
                             .addTablePrefix("tb_", "c_") // 设置过滤表前缀
                             .serviceBuilder()//service策略配置
                             .formatServiceFileName("%sService")

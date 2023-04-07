@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyy.stock.ums.mbg.mapper.StockResourceMapper">
+
+    <select id="getResourceList" resultType="com.lyy.stock.ums.mbg.entity.po.StockResource">
+        SELECT
+            ur.id id,
+            ur.create_time createTime,
+            ur.`name` `name`,
+            ur.url url,
+            ur.description description,
+            ur.category_id categoryId
+        FROM
+            stock_user_role_rel ar
+                LEFT JOIN stock_role r ON ar.role_id = r.id
+                LEFT JOIN stock_role_resource_rel rrr ON r.id = rrr.role_id
+                LEFT JOIN stock_resource ur ON ur.id = rrr.resource_id
+        WHERE
+            ar.user_id = #{userId}
+          AND ur.id IS NOT NULL
+        GROUP BY
+            ur.id
+    </select>
+</mapper>

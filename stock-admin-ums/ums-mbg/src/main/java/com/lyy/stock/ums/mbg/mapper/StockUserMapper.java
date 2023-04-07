@@ -1,7 +1,7 @@
 package com.lyy.stock.ums.mbg.mapper;
 
 import com.lyy.stock.common.mybatis.SuperMapper;
-import com.lyy.stock.ums.mbg.entity.StockUser;
+import com.lyy.stock.ums.mbg.entity.po.StockUser;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

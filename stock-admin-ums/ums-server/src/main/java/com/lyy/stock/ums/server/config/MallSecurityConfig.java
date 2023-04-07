@@ -1,6 +1,9 @@
 package com.lyy.stock.ums.server.config;
 
+import com.lyy.stock.auth.component.DynamicSecurityService;
 import com.lyy.stock.auth.config.SecurityConfig;
+import com.lyy.stock.ums.mbg.entity.po.StockResource;
+import com.lyy.stock.ums.mbg.service.StockResourceService;
 import com.lyy.stock.ums.mbg.service.StockUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +31,7 @@ public class MallSecurityConfig extends SecurityConfig {
     @Autowired
     private StockUserService stockUserService;
     @Autowired
-    private UmsResourceService resourceService;
+    private StockResourceService stockResourceService;
 
 
     @Bean
@@ -42,8 +45,8 @@ public class MallSecurityConfig extends SecurityConfig {
     public DynamicSecurityService dynamicSecurityService() {
         return () -> {
             Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-            List<UmsResource> resourceList = resourceService.listAll();
-            for (UmsResource resource : resourceList) {
+            List<StockResource> resourceList = stockResourceService.listAll();
+            for (StockResource resource : resourceList) {
                 map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
             }
             return map;

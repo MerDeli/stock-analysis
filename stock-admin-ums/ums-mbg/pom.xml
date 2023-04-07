@@ -49,6 +49,11 @@
             <groupId>com.lyy</groupId>
             <artifactId>stock-common-mybatis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.lyy</groupId>
+            <artifactId>stock-security</artifactId>
+        </dependency>
     </dependencies>
 
 

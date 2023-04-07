@@ -1,7 +1,8 @@
 package com.lyy.stock.ums.mbg.service;
 
-import com.lyy.stock.ums.mbg.entity.StockUser;
+import com.lyy.stock.ums.mbg.entity.po.StockUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * <p>
@@ -13,7 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface StockUserService extends IService<StockUser> {
 
-    StockUser getAdminByUsername(String username)
+    StockUser getAdminByUsername(String username);
 
     /**
      * 获取用户信息
