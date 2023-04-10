@@ -17,6 +17,6 @@ public class OptLogServiceClientFallback implements OptLogServiceClient {
 
     @Override
     public ResponseData<Integer> save(@RequestBody OptLog optLog) {
-        return ResponseData.ok();
+        return ResponseData.success();
     }
 }

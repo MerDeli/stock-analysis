@@ -66,7 +66,7 @@ public class ResponseData<T> {
      * @param <T>
      * @return
      */
-    public static <T> ResponseData<T> ok(){
+    public static <T> ResponseData<T> success(){
         return new ResponseData<>();
     }
 
@@ -75,7 +75,7 @@ public class ResponseData<T> {
      * @param <T>
      * @return
      */
-    public static <T> ResponseData<T> ok(T data){
+    public static <T> ResponseData<T> success(T data){
         return new ResponseData<>(data);
     }
 }

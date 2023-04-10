@@ -35,17 +35,23 @@ public class StockUser implements Serializable {
     @TableField("password")
     private String password;
 
-    @TableField("nickename")
-    private String nickename;
+    @TableField("nickname")
+    private String nickName;
 
     @TableField("name")
     private String name;
+
+    @TableField("icon")
+    private String icon;
 
     @TableField("mobile")
     private String mobile;
 
     @TableField("email")
     private String email;
+
+    @TableField("remark")
+    private String remark;
 
     @TableField("user_status")
     private Integer userStatus;

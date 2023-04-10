@@ -2,4 +2,78 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lyy.stock.ums.mbg.mapper.StockUserMapper">
 
+    <resultMap id="BaseResultMap" type="com.lyy.stock.ums.mbg.entity.po.StockUser">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="nickname" jdbcType="VARCHAR" property="nickName" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="user_status" jdbcType="INTEGER" property="userStatus" />
+        <result column="recently_login_time" jdbcType="TIMESTAMP" property="recentlyLoginTime" />
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+        <result column="created_name" jdbcType="VARCHAR" property="createdName" />
+        <result column="updated_name" jdbcType="VARCHAR" property="updatedName" />
+        <result column="delete_flag" jdbcType="INTEGER" property="deleteFlag" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, username, password, nickname, name, icon, mobile, email, mobile, remark, user_status,
+        recently_login_time, created_time, updated_time, created_name, updated_name, delete_flag
+    </sql>
+
+
+    <select id="selectByUser" parameterType="com.lyy.stock.ums.mbg.entity.param.StockUserQueryParam" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from stock_user
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="username != null and username !=''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password !=''">
+                and password = #{password}
+            </if>
+            <if test="nickname != null and nickname !=''">
+                and nickname = #{nickname}
+            </if>
+            <if test="name != null and name !=''">
+                and name = #{name}
+            </if>
+            <if test="icon != null and icon !=''">
+                and icon = #{icon}
+            </if>
+            <if test="mobile != null and mobile !=''">
+                and mobile = #{mobile}
+            </if>
+            <if test="email != null and email !=''">
+                and email = #{email}
+            </if>
+            <if test="remark != null and remark !=''">
+                and remark = #{remark}
+            </if>
+            <if test="userStatus != null">
+                and user_status = #{userStatus}
+            </if>
+            <if test="recentlyLoginTime != null">
+                and recently_login_time = #{recentlyLoginTime}
+            </if>
+            <if test="deleteFlag != null">
+                and delete_flag = #{deleteFlag}
+            </if>
+        </where>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
 </mapper>

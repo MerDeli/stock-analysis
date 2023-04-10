@@ -28,16 +28,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.lyy</groupId>
-            <artifactId>ums-mbg</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.lyy</groupId>
-            <artifactId>stock-common-mybatis</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -66,6 +56,21 @@
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lyy</groupId>
+            <artifactId>ums-mbg</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lyy</groupId>
+            <artifactId>stock-common-mybatis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lyy</groupId>
+            <artifactId>stock-common-swagger</artifactId>
         </dependency>
     </dependencies>
 
