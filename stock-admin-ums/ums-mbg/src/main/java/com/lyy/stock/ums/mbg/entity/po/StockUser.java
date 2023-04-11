@@ -36,7 +36,7 @@ public class StockUser implements Serializable {
     private String password;
 
     @TableField("nickname")
-    private String nickName;
+    private String nickname;
 
     @TableField("name")
     private String name;
@@ -56,22 +56,22 @@ public class StockUser implements Serializable {
     @TableField("user_status")
     private Integer userStatus;
 
-    @TableField("recently_login_time")
+    @TableField(value = "recently_login_time", fill = FieldFill.INSERT)
     private Date recentlyLoginTime;
 
     @TableField(value = "created_time", fill = FieldFill.INSERT)
     private Date createdTime;
 
-    @TableField("updated_time")
+    @TableField(value = "updated_time", fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
-    @TableField("created_name")
+    @TableField(value = "created_name", fill = FieldFill.INSERT)
     private String createdName;
 
-    @TableField("updated_name")
+    @TableField(value = "updated_name", fill = FieldFill.INSERT_UPDATE)
     private String updatedName;
 
-    @TableField("delete_flag")
+    @TableField(value = "delete_flag", fill = FieldFill.INSERT)
     @TableLogic
     private Integer deleteFlag;
 

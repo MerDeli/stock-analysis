@@ -46,7 +46,7 @@ public class StockUserController {
     private StockUserService stockUserService;
 
     @ApiOperation(value = "用户注册")
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @PostMapping(value = "/register")
     @ResponseBody
     public ResponseData<StockUserRegisterVo> register(@RequestBody StockUserRegisterForm stockUserRegisterForm) {
         StockUserRegisterVo registerVo = stockUserService.register(stockUserRegisterForm);
@@ -57,7 +57,7 @@ public class StockUserController {
     }
 
     @ApiOperation(value = "登录以后返回token")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     @ResponseBody
     public ResponseData login(@RequestBody StockUserLoginForm stockUserLoginForm) {
         String token = stockUserService.login(stockUserLoginForm.getUsername(), stockUserLoginForm.getPassword());
@@ -71,7 +71,7 @@ public class StockUserController {
     }
 
     @ApiOperation(value = "刷新token")
-    @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)
+    @GetMapping(value = "/refreshToken")
     @ResponseBody
     public ResponseData refreshToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
@@ -107,7 +107,7 @@ public class StockUserController {
 //    }
 
     @ApiOperation(value = "登出功能")
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @PostMapping(value = "/logout")
     @ResponseBody
     public ResponseData logout() {
         return ResponseData.success(null);

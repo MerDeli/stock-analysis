@@ -72,7 +72,9 @@ public class CodeGenerator {
                             .entityBuilder()// 实体类策略配置
                             .idType(IdType.ASSIGN_ID)//主键策略  雪花算法自动生成的id
                             .addTableFills(new Column("created_time", FieldFill.INSERT)) // 自动填充配置
+                            .addTableFills(new Column("created_name", FieldFill.INSERT)) // 自动填充配置
                             .addTableFills(new Property("updated_time", FieldFill.INSERT_UPDATE))
+                            .addTableFills(new Property("updated_name", FieldFill.INSERT_UPDATE))
                             .enableLombok() //开启lombok
                             .logicDeleteColumnName("delete_flag")// 说明逻辑删除是哪个字段
                             .enableTableFieldAnnotation()// 属性加上注解说明
