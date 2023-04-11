@@ -5,7 +5,7 @@
     <select id="getResourceList" resultType="com.lyy.stock.ums.mbg.entity.po.StockResource">
         SELECT
             ur.id id,
-            ur.create_time createTime,
+            ur.created_time createdTime,
             ur.`name` `name`,
             ur.url url,
             ur.description description,

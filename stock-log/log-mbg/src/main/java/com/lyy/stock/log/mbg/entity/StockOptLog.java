@@ -72,7 +72,7 @@ public class StockOptLog implements Serializable {
     private String tenantCode;
 
     @TableField("created_name")
-    private Long createdName;
+    private String createdName;
 
     @TableField(value = "created_time", fill = FieldFill.INSERT)
     private Date createdTime;

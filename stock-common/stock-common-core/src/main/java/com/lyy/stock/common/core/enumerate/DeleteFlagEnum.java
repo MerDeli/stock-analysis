@@ -1,8 +1,8 @@
 package com.lyy.stock.common.core.enumerate;
 
 public enum DeleteFlagEnum {
-    DELETED(0,"已删除"),
-    NOT_DELETE(1,"未删除");
+    NOT_DELETE(0,"未删除"),
+    DELETED(1,"已删除");
 
     private int code;
     private String msg;

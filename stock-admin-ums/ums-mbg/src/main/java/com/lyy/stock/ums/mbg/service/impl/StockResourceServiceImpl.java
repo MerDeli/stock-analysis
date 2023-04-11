@@ -1,6 +1,7 @@
 package com.lyy.stock.ums.mbg.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.lyy.stock.common.core.enumerate.DeleteFlagEnum;
 import com.lyy.stock.ums.mbg.entity.po.StockResource;
 import com.lyy.stock.ums.mbg.entity.po.StockUser;
 import com.lyy.stock.ums.mbg.mapper.StockResourceMapper;
@@ -29,7 +30,7 @@ public class StockResourceServiceImpl extends ServiceImpl<StockResourceMapper, S
     @Override
     public List<StockResource> listAll() {
         QueryWrapper<StockResource> query = new QueryWrapper<>();
-        query.eq("delete_flag",1);
+        query.eq("delete_flag", DeleteFlagEnum.NOT_DELETE.getCode());
         return this.list(query);
     }
 

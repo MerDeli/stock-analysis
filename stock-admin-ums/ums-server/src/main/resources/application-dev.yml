@@ -32,8 +32,8 @@ management:
 
 mybatis-plus:
   mapper-locations:
-    - classpath:com/lyy/**/mapper/*.xml
-    - classpath*:com/lyy/**/mapper/*.xml
+    - classpath:/mapper/*.xml
+    - classpath*:/mapper/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
@@ -73,3 +73,7 @@ secure:
       - /**/*.png
       - /**/*.ico
       - /webjars/springfox-swagger-ui/**
+      - /stockUser/login
+      - /stockUser/register
+      - /stockUser/info
+      - /stockUser/logout

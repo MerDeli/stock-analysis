@@ -2,6 +2,7 @@ package com.lyy.stock.common.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.lyy.stock.common.core.context.SpringContextUtils;
+import com.lyy.stock.common.core.enumerate.DeleteFlagEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
@@ -25,23 +26,20 @@ public class MybatisInterceptor implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         log.info("start insert fill ....");
-        if (metaObject.hasGetter("createTime")) {
-            this.strictInsertFill(metaObject, "createTime", LocalDateTime::now, LocalDateTime.class);
+        if (metaObject.hasGetter("createdTime")) {
+            this.strictInsertFill(metaObject, "createdTime", LocalDateTime::now, LocalDateTime.class);
         }
-        if (metaObject.hasGetter("createBy")) {
-            this.strictInsertFill(metaObject, "createBy", Long.class, SpringContextUtils.getIdentityId());
+        if (metaObject.hasGetter("createdName")) {
+            this.strictInsertFill(metaObject, "createdName", String.class, SpringContextUtils.getUsername());
         }
-        if (metaObject.hasGetter("updateTime")) {
-            this.strictInsertFill(metaObject, "updateTime", LocalDateTime::now, LocalDateTime.class);
+        if (metaObject.hasGetter("updatedTime")) {
+            this.strictInsertFill(metaObject, "updatedTime", LocalDateTime::now, LocalDateTime.class);
         }
-        if (metaObject.hasGetter("updateBy")) {
-            this.strictInsertFill(metaObject, "updateBy", Long.class, SpringContextUtils.getIdentityId());
+        if (metaObject.hasGetter("updatedName")) {
+            this.strictInsertFill(metaObject, "updatedName", String.class, SpringContextUtils.getUsername());
         }
-        if (metaObject.hasGetter("delFlag")) {
-            this.strictInsertFill(metaObject, "delFlag", Integer.class, 0);
-        }
-        if (metaObject.hasGetter("tenantCode")) {
-            this.strictInsertFill(metaObject, "tenantCode", String.class, SpringContextUtils.getTenantCode());
+        if (metaObject.hasGetter("deleteFlag")) {
+            this.strictInsertFill(metaObject, "deleteFlag", Integer.class, DeleteFlagEnum.NOT_DELETE.getCode());
         }
     }
 
@@ -52,11 +50,11 @@ public class MybatisInterceptor implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         log.info("start update fill ....");
-        if (metaObject.hasGetter("updateTime")) {
-            this.strictUpdateFill(metaObject, "updateTime", LocalDateTime::now, LocalDateTime.class);
+        if (metaObject.hasGetter("updatedTime")) {
+            this.strictUpdateFill(metaObject, "updatedTime", LocalDateTime::now, LocalDateTime.class);
         }
-        if (metaObject.hasGetter("updateBy")) {
-            this.strictUpdateFill(metaObject, "updateBy", Long.class, SpringContextUtils.getIdentityId());
+        if (metaObject.hasGetter("updatedName")) {
+            this.strictUpdateFill(metaObject, "updatedName", String.class, SpringContextUtils.getUsername());
         }
     }
 }

@@ -58,7 +58,6 @@ public class StockUserServiceImpl extends ServiceImpl<StockUserMapper, StockUser
     public StockUser getAdminByUsername(String username) {
         QueryWrapper<StockUser> query = new QueryWrapper<>();
         query.eq("username",username);
-        query.eq("delete_flag",DeleteFlagEnum.NOT_DELETE.getCode());
         StockUser stockUser = this.getOne(query);
         return stockUser;
     }
