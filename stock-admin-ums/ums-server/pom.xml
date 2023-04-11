@@ -71,6 +71,12 @@
         <dependency>
             <groupId>com.lyy</groupId>
             <artifactId>stock-common-swagger</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.validation</groupId>
+                    <artifactId>validation-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

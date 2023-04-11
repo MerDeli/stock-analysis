@@ -1,7 +1,7 @@
 package com.lyy.stock.auth.config;
 
 import com.lyy.stock.auth.component.*;
-import com.lyy.stock.common.token.utils.JwtUtil;
+import com.lyy.stock.auth.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
@@ -102,8 +102,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JwtUtil jwtTokenUtil() {
-        return new JwtUtil();
+    public JwtTokenUtil jwtTokenUtil() {
+        return new JwtTokenUtil();
     }
 
     @ConditionalOnBean(name = "dynamicSecurityService")

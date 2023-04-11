@@ -1,6 +1,7 @@
 package com.lyy.stock.ums.mbg.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.lyy.stock.auth.utils.JwtTokenUtil;
 import com.lyy.stock.common.core.enumerate.DeleteFlagEnum;
 import com.lyy.stock.common.core.exception.StockException;
 import com.lyy.stock.ums.mbg.entity.bo.AdminUserDetails;
@@ -10,10 +11,12 @@ import com.lyy.stock.ums.mbg.entity.param.StockUserQueryParam;
 import com.lyy.stock.ums.mbg.entity.po.StockResource;
 import com.lyy.stock.ums.mbg.entity.po.StockUser;
 import com.lyy.stock.ums.mbg.entity.vo.StockUserRegisterVo;
+import com.lyy.stock.ums.mbg.exception.UmsExceptionCode;
 import com.lyy.stock.ums.mbg.service.StockResourceService;
 import com.lyy.stock.ums.mbg.service.StockUserService;
 import com.lyy.stock.ums.mbg.mapper.StockUserMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -36,6 +39,7 @@ import java.util.List;
  * @since 2023-03-21
  */
 @Service
+@Slf4j
 public class StockUserServiceImpl extends ServiceImpl<StockUserMapper, StockUser> implements StockUserService {
 
     @Autowired
@@ -46,6 +50,9 @@ public class StockUserServiceImpl extends ServiceImpl<StockUserMapper, StockUser
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @Override
     public StockUser getAdminByUsername(String username) {
@@ -64,7 +71,7 @@ public class StockUserServiceImpl extends ServiceImpl<StockUserMapper, StockUser
             List<StockResource> resourceList = stockResourceService.getResourceList(stockUser.getId());
             return new AdminUserDetails(stockUser,resourceList);
         }
-        throw new StockException(600,"用户名或密码错误");
+        throw new StockException(UmsExceptionCode.USERNAME_OR_PASSWORD_ERROR);
     }
 
 
@@ -106,10 +113,10 @@ public class StockUserServiceImpl extends ServiceImpl<StockUserMapper, StockUser
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtTokenUtil.generateToken(userDetails);
 //            updateLoginTimeByUsername(username);
-            adminCacheService.setToken(username, tokenHead+token);
-            insertLoginLog(username);
+            //todo 添加登录日志
+//            insertLoginLog(username);
         } catch (AuthenticationException e) {
-            LOGGER.warn("登录异常:{}", e.getMessage());
+            log.warn("登录异常:{}", e.getMessage());
         }
         return token;
     }

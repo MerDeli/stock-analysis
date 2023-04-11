@@ -85,26 +85,26 @@ public class StockUserController {
         return ResponseData.success(tokenMap);
     }
 
-    @ApiOperation(value = "获取当前登录用户信息")
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseData getAdminInfo(Principal principal) {
-        if (principal == null) {
-            return ResponseData.error(CommonExceptionCode.JWT_ILLEGAL_ARGUMENT);
-        }
-        String username = principal.getName();
-        StockUser stockUser = stockUserService.getAdminByUsername(username);
-        Map<String, Object> data = new HashMap<>();
-        data.put("username", stockUser.getUsername());
-        data.put("menus", roleService.getMenuList(stockUser.getId()));
-        data.put("icon", stockUser.getIcon());
-        List<UmsRole> roleList = stockUserService.getRoleList(stockUser.getId());
-        if (CollUtil.isNotEmpty(roleList)) {
-            List<String> roles = roleList.stream().map(UmsRole::getName).collect(Collectors.toList());
-            data.put("roles", roles);
-        }
-        return ResponseData.success(data);
-    }
+//    @ApiOperation(value = "获取当前登录用户信息")
+//    @RequestMapping(value = "/info", method = RequestMethod.GET)
+//    @ResponseBody
+//    public ResponseData getAdminInfo(Principal principal) {
+//        if (principal == null) {
+//            return ResponseData.error(CommonExceptionCode.JWT_ILLEGAL_ARGUMENT);
+//        }
+//        String username = principal.getName();
+//        StockUser stockUser = stockUserService.getAdminByUsername(username);
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("username", stockUser.getUsername());
+//        data.put("menus", roleService.getMenuList(stockUser.getId()));
+//        data.put("icon", stockUser.getIcon());
+//        List<UmsRole> roleList = stockUserService.getRoleList(stockUser.getId());
+//        if (CollUtil.isNotEmpty(roleList)) {
+//            List<String> roles = roleList.stream().map(UmsRole::getName).collect(Collectors.toList());
+//            data.put("roles", roles);
+//        }
+//        return ResponseData.success(data);
+//    }
 
     @ApiOperation(value = "登出功能")
     @RequestMapping(value = "/logout", method = RequestMethod.POST)

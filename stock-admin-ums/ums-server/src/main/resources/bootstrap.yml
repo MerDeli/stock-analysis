@@ -1,6 +1,9 @@
 server:
   port: ${SERVER_PORT:11002}
 spring:
+  profiles:
+    # dev 默认为开发环境 , prod 线上环境
+    active: dev
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
