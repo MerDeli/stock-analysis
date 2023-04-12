@@ -16,8 +16,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +54,6 @@ public class StockUserController {
 
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "/register")
-    @ResponseBody
     public ResponseData<StockUserRegisterVo> register(@RequestBody StockUserRegisterForm stockUserRegisterForm) {
         StockUserRegisterVo registerVo = stockUserService.register(stockUserRegisterForm);
         if (registerVo == null) {
@@ -67,7 +64,6 @@ public class StockUserController {
 
     @ApiOperation(value = "登录以后返回token")
     @PostMapping(value = "/login")
-    @ResponseBody
     public ResponseData login(@RequestBody StockUserLoginForm stockUserLoginForm) {
         String token = stockUserService.login(stockUserLoginForm.getUsername(), stockUserLoginForm.getPassword());
         if (token == null) {
@@ -81,7 +77,6 @@ public class StockUserController {
 
     @ApiOperation(value = "刷新token")
     @GetMapping(value = "/refreshToken")
-    @ResponseBody
     public ResponseData refreshToken(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
         String refreshToken = stockUserService.refreshToken(token);
@@ -95,9 +90,8 @@ public class StockUserController {
     }
 
     @ApiOperation(value = "获取当前登录用户信息")
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
-    @ResponseBody
-    public ResponseData getAdminInfo(Principal principal) {
+    @GetMapping(value = "/info")
+    public ResponseData getUserInfo(Principal principal) {
         if (principal == null) {
             return ResponseData.error(CommonExceptionCode.JWT_ILLEGAL_ARGUMENT);
         }
@@ -117,7 +111,6 @@ public class StockUserController {
 
     @ApiOperation(value = "登出功能")
     @PostMapping(value = "/logout")
-    @ResponseBody
     public ResponseData logout() {
         return ResponseData.success(null);
     }
