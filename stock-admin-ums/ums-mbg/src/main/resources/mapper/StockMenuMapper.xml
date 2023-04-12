@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyy.stock.ums.mbg.mapper.StockMenuMapper">
+
+    <select id="getMenuList" resultType="com.lyy.stock.ums.mbg.entity.po.StockMenu">
+        SELECT
+            m.id id,
+            m.parent_id parentId,
+            m.created_time createdTime,
+            m.title title,
+            m.level level,
+            m.sort sort,
+            m.name name,
+            m.icon icon,
+            m.hidden hidden
+        FROM
+            stock_user_role_rel urr
+                LEFT JOIN stock_role r ON urr.role_id = r.id
+                LEFT JOIN stock_role_menu_rel rmr ON r.id = rmr.role_id
+                LEFT JOIN stock_menu m ON rmr.menu_id = m.id
+        WHERE
+            urr.user_id = #{userId}
+          AND m.id IS NOT NULL
+        GROUP BY
+            m.id
+    </select>
+</mapper>

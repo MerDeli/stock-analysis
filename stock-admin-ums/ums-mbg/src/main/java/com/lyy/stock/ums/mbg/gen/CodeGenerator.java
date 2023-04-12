@@ -64,7 +64,7 @@ public class CodeGenerator {
                 })
 
                 .strategyConfig(builder -> {
-                    builder.addInclude("stock_role_resource_rel") // 设置需要生成的表名 可边长参数“user”, “user1”
+                    builder.addInclude("stock_menu","stock_role_menu_rel") // 设置需要生成的表名 可边长参数“user”, “user1”
                             .addTablePrefix("tb_", "c_") // 设置过滤表前缀
                             .serviceBuilder()//service策略配置
                             .formatServiceFileName("%sService")

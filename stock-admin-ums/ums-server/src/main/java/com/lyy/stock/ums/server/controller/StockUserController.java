@@ -5,9 +5,12 @@ import com.lyy.stock.common.core.api.ResponseData;
 import com.lyy.stock.common.core.exception.CommonExceptionCode;
 import com.lyy.stock.ums.mbg.entity.form.StockUserLoginForm;
 import com.lyy.stock.ums.mbg.entity.form.StockUserRegisterForm;
+import com.lyy.stock.ums.mbg.entity.po.StockRole;
 import com.lyy.stock.ums.mbg.entity.po.StockUser;
 import com.lyy.stock.ums.mbg.entity.vo.StockUserRegisterVo;
 import com.lyy.stock.ums.mbg.exception.UmsExceptionCode;
+import com.lyy.stock.ums.mbg.service.StockMenuService;
+import com.lyy.stock.ums.mbg.service.StockRoleService;
 import com.lyy.stock.ums.mbg.service.StockUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,6 +47,12 @@ public class StockUserController {
 
     @Autowired
     private StockUserService stockUserService;
+
+    @Autowired
+    private StockMenuService menuService;
+
+    @Autowired
+    private StockRoleService roleService;
 
     @ApiOperation(value = "用户注册")
     @PostMapping(value = "/register")
@@ -85,26 +94,26 @@ public class StockUserController {
         return ResponseData.success(tokenMap);
     }
 
-//    @ApiOperation(value = "获取当前登录用户信息")
-//    @RequestMapping(value = "/info", method = RequestMethod.GET)
-//    @ResponseBody
-//    public ResponseData getAdminInfo(Principal principal) {
-//        if (principal == null) {
-//            return ResponseData.error(CommonExceptionCode.JWT_ILLEGAL_ARGUMENT);
-//        }
-//        String username = principal.getName();
-//        StockUser stockUser = stockUserService.getAdminByUsername(username);
-//        Map<String, Object> data = new HashMap<>();
-//        data.put("username", stockUser.getUsername());
-//        data.put("menus", roleService.getMenuList(stockUser.getId()));
-//        data.put("icon", stockUser.getIcon());
-//        List<UmsRole> roleList = stockUserService.getRoleList(stockUser.getId());
-//        if (CollUtil.isNotEmpty(roleList)) {
-//            List<String> roles = roleList.stream().map(UmsRole::getName).collect(Collectors.toList());
-//            data.put("roles", roles);
-//        }
-//        return ResponseData.success(data);
-//    }
+    @ApiOperation(value = "获取当前登录用户信息")
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseData getAdminInfo(Principal principal) {
+        if (principal == null) {
+            return ResponseData.error(CommonExceptionCode.JWT_ILLEGAL_ARGUMENT);
+        }
+        String username = principal.getName();
+        StockUser stockUser = stockUserService.getAdminByUsername(username);
+        Map<String, Object> data = new HashMap<>();
+        data.put("username", stockUser.getUsername());
+        data.put("menus", menuService.getMenuList(stockUser.getId()));
+        data.put("icon", stockUser.getIcon());
+        List<StockRole> roleList = roleService.getRoleList(stockUser.getId());
+        if (CollUtil.isNotEmpty(roleList)) {
+            List<String> roles = roleList.stream().map(StockRole::getName).collect(Collectors.toList());
+            data.put("roles", roles);
+        }
+        return ResponseData.success(data);
+    }
 
     @ApiOperation(value = "登出功能")
     @PostMapping(value = "/logout")

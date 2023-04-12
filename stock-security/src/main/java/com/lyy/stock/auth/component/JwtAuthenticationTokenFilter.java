@@ -1,7 +1,6 @@
 package com.lyy.stock.auth.component;
 
-import com.lyy.stock.common.token.model.JwtUserInfo;
-import com.lyy.stock.common.token.utils.AuthUtil;
+import com.lyy.stock.auth.utils.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
-    private AuthUtil authUtil;
+    private JwtTokenUtil jwtTokenUtil;
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
     @Value("${jwt.tokenHead}")
@@ -42,9 +41,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader(this.tokenHeader);
         if (authHeader != null && authHeader.startsWith(this.tokenHead)) {
             String authToken = authHeader.substring(this.tokenHead.length());// The part after "Bearer "
-            JwtUserInfo authInfo = authUtil.getAuthInfo(authToken);
-            LOGGER.info("checking authInfo:{}", authInfo);
-            String username = authInfo.getUsername();
+            String username = jwtTokenUtil.getUserNameFromToken(authToken);
+            LOGGER.info("checking username:{}", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
                 if (username.equals(userDetails.getUsername())) {

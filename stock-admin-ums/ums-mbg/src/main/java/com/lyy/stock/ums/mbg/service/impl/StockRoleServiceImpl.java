@@ -4,7 +4,10 @@ import com.lyy.stock.ums.mbg.entity.po.StockRole;
 import com.lyy.stock.ums.mbg.service.StockRoleService;
 import com.lyy.stock.ums.mbg.mapper.StockRoleMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class StockRoleServiceImpl extends ServiceImpl<StockRoleMapper, StockRole> implements StockRoleService {
 
+    @Autowired
+    private StockRoleMapper roleMapper;
+
+    @Override
+    public List<StockRole> getRoleList(Long userId) {
+        return roleMapper.getRoleList(userId);
+    }
 }
