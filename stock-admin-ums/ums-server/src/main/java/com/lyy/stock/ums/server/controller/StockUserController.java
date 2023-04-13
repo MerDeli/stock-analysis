@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * @since 2023-03-21
  */
 @RestController
-@Api(tags = "StockUserController", description = "后台用户管理")
+@Api(tags = "后台用户管理")
 @RequestMapping("/stockUser")
 public class StockUserController {
 
@@ -69,7 +69,7 @@ public class StockUserController {
         if (token == null) {
             return ResponseData.error(UmsExceptionCode.USERNAME_OR_PASSWORD_ERROR);
         }
-        Map<String, String> tokenMap = new HashMap<>();
+        Map<String, String> tokenMap = new HashMap<>(16);
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
         return ResponseData.success(tokenMap);
@@ -83,7 +83,7 @@ public class StockUserController {
         if (refreshToken == null) {
             return ResponseData.error(CommonExceptionCode.JWT_TOKEN_EXPIRED);
         }
-        Map<String, String> tokenMap = new HashMap<>();
+        Map<String, String> tokenMap = new HashMap<>(16);
         tokenMap.put("token", refreshToken);
         tokenMap.put("tokenHead", tokenHead);
         return ResponseData.success(tokenMap);
@@ -97,7 +97,7 @@ public class StockUserController {
         }
         String username = principal.getName();
         StockUser stockUser = stockUserService.getAdminByUsername(username);
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>(16);
         data.put("username", stockUser.getUsername());
         data.put("menus", menuService.getMenuList(stockUser.getId()));
         data.put("icon", stockUser.getIcon());

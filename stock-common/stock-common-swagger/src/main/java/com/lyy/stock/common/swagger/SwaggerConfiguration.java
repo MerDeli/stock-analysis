@@ -1,6 +1,7 @@
 package com.lyy.stock.common.swagger;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import io.swagger.annotations.Api;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +14,12 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.oas.annotations.EnableOpenApi;
+import springfox.documentation.schema.ScalarType;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ParameterType;
+import springfox.documentation.service.RequestParameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.spring.web.plugins.WebFluxRequestHandlerProvider;
@@ -22,6 +27,7 @@ import springfox.documentation.spring.web.plugins.WebMvcRequestHandlerProvider;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,9 +73,11 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
                 .apiInfo(getApiInfo())
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.lyy.stock"))
+                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .globalRequestParameters(getParameterList())
+                ;
     }
 
     /**
@@ -81,6 +89,23 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
                 .description("<div style='font-size:14px;color:red;'>股票分析接口文档</div>")
                 .version("1.0")
                 .build();
+    }
+
+
+    /**
+     * 添加head参数配置
+     */
+    private List<RequestParameter> getParameterList() {
+        RequestParameterBuilder parameterBuilder = new RequestParameterBuilder();
+        List<RequestParameter> pars = new ArrayList<RequestParameter>();
+        parameterBuilder.name("Authorization")
+                .description("token令牌")
+                .in(ParameterType.HEADER)
+                .query(q -> q.model(m->m.scalarModel(ScalarType.STRING)))
+                .required(false)
+                .build(); //设置false，表示clientId参数 非必填,可传可不传！
+        pars.add(parameterBuilder.build());
+        return pars;
     }
 
     @Bean
