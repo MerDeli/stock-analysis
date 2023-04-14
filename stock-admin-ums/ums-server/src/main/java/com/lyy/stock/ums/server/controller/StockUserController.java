@@ -96,7 +96,7 @@ public class StockUserController {
             return ResponseData.error(CommonExceptionCode.JWT_ILLEGAL_ARGUMENT);
         }
         String username = principal.getName();
-        StockUser stockUser = stockUserService.getAdminByUsername(username);
+        StockUser stockUser = stockUserService.getUserByUsername(username);
         Map<String, Object> data = new HashMap<>(16);
         data.put("username", stockUser.getUsername());
         data.put("menus", menuService.getMenuList(stockUser.getId()));

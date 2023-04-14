@@ -48,6 +48,7 @@
         <ip2region.version>2.7.0</ip2region.version>
         <bitwalker.version>1.21</bitwalker.version>
         <alibaba-sentinel.version>2021.1</alibaba-sentinel.version>
+        <skywalking-logback.version>8.6.0</skywalking-logback.version>
     </properties>
 
     <modules>
@@ -199,17 +200,13 @@
                 <version>${alibaba-sentinel.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-logback-1.x</artifactId>
+                <version>${skywalking-logback.version}</version>
+            </dependency>
+
             <!--项目子模块-->
-            <dependency>
-                <groupId>com.lyy</groupId>
-                <artifactId>stock-common-mybatis</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.lyy</groupId>
-                <artifactId>stock-common-core</artifactId>
-                <version>${project.version}</version>
-            </dependency>
             <dependency>
                 <groupId>com.lyy</groupId>
                 <artifactId>stock-admin-ums</artifactId>
@@ -217,7 +214,12 @@
             </dependency>
             <dependency>
                 <groupId>com.lyy</groupId>
-                <artifactId>stock-common</artifactId>
+                <artifactId>log-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -227,7 +229,17 @@
             </dependency>
             <dependency>
                 <groupId>com.lyy</groupId>
-                <artifactId>log-common</artifactId>
+                <artifactId>stock-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-common-mybatis</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-common-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -247,7 +259,7 @@
             </dependency>
             <dependency>
                 <groupId>com.lyy</groupId>
-                <artifactId>stock-security</artifactId>
+                <artifactId>stock-common-log</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -55,7 +55,7 @@ public class StockUserServiceImpl extends ServiceImpl<StockUserMapper, StockUser
     private JwtTokenUtil jwtTokenUtil;
 
     @Override
-    public StockUser getAdminByUsername(String username) {
+    public StockUser getUserByUsername(String username) {
         QueryWrapper<StockUser> query = new QueryWrapper<>();
         query.eq("username",username);
         StockUser stockUser = this.getOne(query);
@@ -64,10 +64,12 @@ public class StockUserServiceImpl extends ServiceImpl<StockUserMapper, StockUser
 
     @Override
     public UserDetails loadUserByUsername(String username){
+        log.info("loadUserByUsername 入参:{}",username);
         //获取用户信息
-        StockUser stockUser = getAdminByUsername(username);
+        StockUser stockUser = getUserByUsername(username);
         if (stockUser != null) {
             List<StockResource> resourceList = stockResourceService.getResourceList(stockUser.getId());
+            log.info("用户:{},获取用户所有可访问资源:{}",username,resourceList);
             return new AdminUserDetails(stockUser,resourceList);
         }
         throw new StockException(UmsExceptionCode.USERNAME_OR_PASSWORD_ERROR);
@@ -76,12 +78,14 @@ public class StockUserServiceImpl extends ServiceImpl<StockUserMapper, StockUser
 
     @Override
     public StockUserRegisterVo register(StockUserRegisterForm registerForm) {
+        log.info("register入参:{}",registerForm);
         //查询是否有相同用户名的用户
         StockUserQueryParam userQueryParam = new StockUserQueryParam();
         userQueryParam.setUsername(registerForm.getUsername());
         userQueryParam.setDeleteFlag(DeleteFlagEnum.NOT_DELETE.getCode());
         List<StockUser> userList = stockUserMapper.selectByUser(userQueryParam);
         if (userList.size() > 0) {
+            log.info("用户:{}有相同用户名",registerForm.getUsername());
             return null;
         }
         // 保存注册用户信息
@@ -101,6 +105,7 @@ public class StockUserServiceImpl extends ServiceImpl<StockUserMapper, StockUser
 
     @Override
     public String login(String username, String password) {
+        log.info("login入参用户名:{},密码:{}",username,password);
         String token = null;
         //密码需要客户端加密后传递
         try {

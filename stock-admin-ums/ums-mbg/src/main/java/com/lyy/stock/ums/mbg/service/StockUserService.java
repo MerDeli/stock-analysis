@@ -16,7 +16,12 @@ import org.springframework.security.core.userdetails.UserDetails;
  */
 public interface StockUserService extends IService<StockUser> {
 
-    StockUser getAdminByUsername(String username);
+    /**
+     * 获取用户信息
+     * @param username
+     * @return
+     */
+    StockUser getUserByUsername(String username);
 
     /**
      * 获取用户信息

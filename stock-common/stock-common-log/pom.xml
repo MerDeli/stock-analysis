@@ -43,6 +43,12 @@
             <artifactId>transmittable-thread-local</artifactId>
         </dependency>
 
+        <!--skywalking打印日志-->
+        <dependency>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

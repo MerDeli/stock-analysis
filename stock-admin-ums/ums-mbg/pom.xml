@@ -59,6 +59,11 @@
             <groupId>com.lyy</groupId>
             <artifactId>stock-common-token</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.lyy</groupId>
+            <artifactId>stock-common-log</artifactId>
+        </dependency>
     </dependencies>
 
 

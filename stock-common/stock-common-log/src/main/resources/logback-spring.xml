@@ -102,6 +102,14 @@
         </filter>
     </appender>
 
+    <appender name="skywalking-log" class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.log.GRPCLogClientAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="org.apache.skywalking.apm.toolkit.log.logback.v1.x.TraceIdPatternLogbackLayout">
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level logger_name:%logger{36} - [%tid] - message:%msg%n</pattern>
+            </layout>
+        </encoder>
+    </appender>
+
     <!-- uat,prod -->
     <springProfile name="=fat,uat,prod">
         <root level="${log.level.console}">
@@ -119,8 +127,9 @@
             <appender-ref ref="CONSOLE_APPENDER"/>
             <appender-ref ref="ROOT_APPENDER"/>
             <appender-ref ref="ERROR_APPENDER"/>
+            <appender-ref ref="skywalking-log" />
         </root>
-        <logger name="cn.hfbin.common.log" level="INFO" addtivity="false">
+        <logger name="com.lyy.stock.common.log" level="INFO" addtivity="false">
             <appender-ref ref="POINT_LOG_APPENDER"/>
         </logger>
     </springProfile>
