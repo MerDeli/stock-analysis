@@ -19,6 +19,12 @@ target/
 *.iml
 *.ipr
 
+### append gitignore rules by lyy
+mvnw*
+*.log
+.gitignore
+.mvn
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
