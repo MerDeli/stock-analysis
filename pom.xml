@@ -32,7 +32,7 @@
         <hutool.version>5.8.12</hutool.version>
         <mysql-connector.version>8.0.28</mysql-connector.version>
         <jjwt.version>0.9.1</jjwt.version>
-        <spring.boot.admin.version>2.6.11</spring.boot.admin.version>
+        <spring.boot.admin.version>2.7.10</spring.boot.admin.version>
         <swagger-models.version>1.6.3</swagger-models.version>
         <springfox.version>3.0.0</springfox.version>
         <knife4j.version>3.0.3</knife4j.version>
@@ -49,6 +49,7 @@
         <bitwalker.version>1.21</bitwalker.version>
         <alibaba-sentinel.version>2021.1</alibaba-sentinel.version>
         <skywalking-logback.version>8.6.0</skywalking-logback.version>
+        <powerjob-worker.version>4.3.2</powerjob-worker.version>
     </properties>
 
     <modules>
@@ -200,10 +201,18 @@
                 <version>${alibaba-sentinel.version}</version>
             </dependency>
 
+            <!--收集日志-->
             <dependency>
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-logback-1.x</artifactId>
                 <version>${skywalking-logback.version}</version>
+            </dependency>
+
+            <!--分布式定时任务powerjob-->
+            <dependency>
+                <groupId>tech.powerjob</groupId>
+                <artifactId>powerjob-worker-spring-boot-starter</artifactId>
+                <version>${powerjob-worker.version}</version>
             </dependency>
 
             <!--项目子模块-->
@@ -260,6 +269,11 @@
             <dependency>
                 <groupId>com.lyy</groupId>
                 <artifactId>stock-common-log</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-common-mongodb</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

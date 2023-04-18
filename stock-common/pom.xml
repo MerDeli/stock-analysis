@@ -21,6 +21,7 @@
         <module>stock-common-log</module>
         <module>stock-common-token</module>
         <module>stock-common-cache</module>
+        <module>stock-common-mongodb</module>
     </modules>
 
 </project>
