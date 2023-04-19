@@ -1,6 +1,6 @@
 package com.lyy.stock.log.mbg.mapper;
 
-import com.lyy.stock.log.mbg.entity.StockOptLog;
+import com.lyy.stock.log.mbg.entity.po.StockOptLog;
 import com.lyy.stock.common.mybatis.SuperMapper;
 import org.apache.ibatis.annotations.Mapper;
 

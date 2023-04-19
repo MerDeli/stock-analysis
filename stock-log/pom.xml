@@ -20,4 +20,14 @@
         <module>log-server</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>log-mbg</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
 </project>
