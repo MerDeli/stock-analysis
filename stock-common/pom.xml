@@ -22,6 +22,7 @@
         <module>stock-common-token</module>
         <module>stock-common-cache</module>
         <module>stock-common-mongodb</module>
+        <module>stock-common-rocketmq</module>
     </modules>
 
 </project>

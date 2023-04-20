@@ -44,6 +44,11 @@
             <groupId>com.lyy</groupId>
             <artifactId>stock-common-mongodb</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.lyy</groupId>
+            <artifactId>stock-common-rocketmq</artifactId>
+        </dependency>
     </dependencies>
 
 

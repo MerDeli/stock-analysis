@@ -50,6 +50,7 @@
         <alibaba-sentinel.version>2021.1</alibaba-sentinel.version>
         <skywalking-logback.version>8.6.0</skywalking-logback.version>
         <powerjob-worker.version>4.3.2</powerjob-worker.version>
+        <rocketmq-spring-boot-starter.version>2.2.2</rocketmq-spring-boot-starter.version>
     </properties>
 
     <modules>
@@ -215,6 +216,13 @@
                 <version>${powerjob-worker.version}</version>
             </dependency>
 
+            <!--rocketmq消息队列-->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>${rocketmq-spring-boot-starter.version}</version>
+            </dependency>
+
             <!--项目子模块-->
             <dependency>
                 <groupId>com.lyy</groupId>
@@ -274,6 +282,11 @@
             <dependency>
                 <groupId>com.lyy</groupId>
                 <artifactId>stock-common-mongodb</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.lyy</groupId>
+                <artifactId>stock-common-rocketmq</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

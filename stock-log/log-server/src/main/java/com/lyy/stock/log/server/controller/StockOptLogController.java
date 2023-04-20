@@ -1,6 +1,7 @@
 package com.lyy.stock.log.server.controller;
 
 import com.lyy.stock.common.core.api.ResponseData;
+import com.lyy.stock.common.rocketmq.component.MqProducterComponent;
 import com.lyy.stock.log.mbg.entity.form.StockOptLogForm;
 import com.lyy.stock.log.mbg.entity.form.StockOptLogQueryForm;
 import com.lyy.stock.log.mbg.entity.form.StockOptLogUpdateForm;
@@ -9,6 +10,7 @@ import com.lyy.stock.log.mbg.service.StockOptLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,6 +27,9 @@ public class StockOptLogController {
 
     @Autowired
     private StockOptLogService stockOptService;
+
+    @Resource
+    private MqProducterComponent mqProducterComponent;
 
 //    /**
 //     * 分页查询
@@ -74,6 +79,12 @@ public class StockOptLogController {
     @GetMapping("/{id}")
     public ResponseData<StockOptLogVo> findById(@PathVariable Long id){
         return ResponseData.success(stockOptService.findById(id));
+    }
+
+
+    @GetMapping("/test")
+    public void test(){
+        mqProducterComponent.oneWaySendMsg("test-topic:test-tag",11111,"22222");
     }
 
 }
