@@ -51,6 +51,7 @@
         <skywalking-logback.version>8.6.0</skywalking-logback.version>
         <powerjob-worker.version>4.3.2</powerjob-worker.version>
         <rocketmq-spring-boot-starter.version>2.2.2</rocketmq-spring-boot-starter.version>
+        <seata-all.version>1.6.1</seata-all.version>
     </properties>
 
     <modules>
@@ -60,6 +61,8 @@
         <module>stock-gateway</module>
         <module>stock-log</module>
         <module>stock-security</module>
+        <module>stock-data</module>
+        <module>stock-test</module>
     </modules>
 
     <dependencyManagement>
@@ -221,6 +224,13 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>${rocketmq-spring-boot-starter.version}</version>
+            </dependency>
+
+            <!-- seata分布式事务依赖 -->
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-all</artifactId>
+                <version>${seata-all.version}</version>
             </dependency>
 
             <!--项目子模块-->

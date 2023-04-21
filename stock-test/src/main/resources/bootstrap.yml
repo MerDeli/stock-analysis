@@ -1,0 +1,26 @@
+server:
+  port: ${SERVER_PORT:11005}
+spring:
+  profiles:
+    # dev 默认为开发环境 , prod 线上环境
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  application:
+    name: stock-test
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${REGISTER_HOST:localhost}:${REGISTER_PORT:8848}
+        namespace: 37fa17b6-1a1c-413f-b0f9-a742dfce48f8
+      config:
+        server-addr: ${REGISTER_HOST:localhost}:${REGISTER_PORT:8848}
+        prefix: stock-test
+        file-extension: yaml
+        group: dev
+        namespace: 37fa17b6-1a1c-413f-b0f9-a742dfce48f8
+
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true

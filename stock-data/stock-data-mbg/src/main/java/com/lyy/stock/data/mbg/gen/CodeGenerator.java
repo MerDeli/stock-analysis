@@ -1,4 +1,4 @@
-package com.lyy.stock.log.mbg.gen;
+package com.lyy.stock.data.mbg.gen;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -51,7 +51,7 @@ public class CodeGenerator {
                 })
 
                 .packageConfig(builder -> {
-                    builder.parent("com.lyy.stock.log.mbg") // 父包模块名 默认值:com.baomidou
+                    builder.parent("com.lyy.stock.data.mbg") // 父包模块名 默认值:com.baomidou
                             .controller("controller")//Controller 包名 默认值:controller
                             .entity("entity.po")//Entity 包名 默认值:entity
                             .service("service")//Service 包名 默认值:service
@@ -62,7 +62,7 @@ public class CodeGenerator {
                 })
 
                 .strategyConfig(builder -> {
-                    builder.addInclude("stock_opt_log") // 设置需要生成的表名 可边长参数“user”, “user1”
+                    builder.addInclude("stock_data") // 设置需要生成的表名 可边长参数“user”, “user1”
                             .addTablePrefix("tb_", "c_") // 设置过滤表前缀
                             .serviceBuilder()//service策略配置
                             .formatServiceFileName("%sService")
@@ -70,7 +70,9 @@ public class CodeGenerator {
                             .entityBuilder()// 实体类策略配置
                             .idType(IdType.ASSIGN_ID)//主键策略  雪花算法自动生成的id
                             .addTableFills(new Column("created_time", FieldFill.INSERT)) // 自动填充配置
+                            .addTableFills(new Column("created_name", FieldFill.INSERT)) // 自动填充配置
                             .addTableFills(new Property("updated_time", FieldFill.INSERT_UPDATE))
+                            .addTableFills(new Property("updated_name", FieldFill.INSERT_UPDATE))
                             .enableLombok() //开启lombok
                             .logicDeleteColumnName("delete_flag")// 说明逻辑删除是哪个字段
                             .enableTableFieldAnnotation()// 属性加上注解说明
