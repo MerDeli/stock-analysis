@@ -41,6 +41,18 @@ public class StockOptLogController {
 //
 //    }
 
+
+    /**
+     * 练习查询
+     * @param
+     * @return
+     */
+    @GetMapping("/findTest")
+    public ResponseData find(){
+        stockOptService.find();
+        return ResponseData.success(null);
+    }
+
     /**
      * 新增数据
      * @param logForm 新增对象

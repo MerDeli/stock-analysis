@@ -1,0 +1,12 @@
+package rules;
+dialect "java"
+
+import com.lyy.stock.test.entity.po.*;
+
+
+rule "评估用户"
+when
+  $u : StockTest(name == "张" || name == "李")
+then
+  System.err.println("用户"+$u.getName());
+ end

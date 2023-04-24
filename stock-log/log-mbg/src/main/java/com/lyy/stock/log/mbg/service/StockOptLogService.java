@@ -14,6 +14,12 @@ import com.lyy.stock.log.mbg.entity.vo.StockOptLogVo;
  */
 public interface StockOptLogService extends IService<StockOptLog> {
 
+
+    /**
+     * 联系各种查询
+     */
+    void find();
+
     /**
      * 新增
      * @param stockOptLog

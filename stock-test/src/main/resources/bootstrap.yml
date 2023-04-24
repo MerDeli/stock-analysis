@@ -20,7 +20,15 @@ spring:
         file-extension: yaml
         group: dev
         namespace: 37fa17b6-1a1c-413f-b0f9-a742dfce48f8
-
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true
+
+  drools:
+    path: classpath:rules/**/*.drl
+
+
+
+canal:
+  destination: example
+  server: 127.0.0.1:11111
