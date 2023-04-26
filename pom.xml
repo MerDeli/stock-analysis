@@ -65,6 +65,7 @@
         <module>stock-security</module>
         <module>stock-data</module>
         <module>stock-test</module>
+        <module>stock-sms</module>
     </modules>
 
     <dependencyManagement>
