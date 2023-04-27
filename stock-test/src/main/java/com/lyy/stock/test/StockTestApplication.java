@@ -9,6 +9,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class StockTestApplication {
 
     public static void main(String[] args) {
+        // 设置drools的日期格式，否则会导致启动异常错误:it should follow: [dd-MMM-yyyy]
+        System.setProperty("drools.dateformat", "yyyy-MM-dd HH:mm:ss");
         SpringApplication.run(StockTestApplication.class, args);
     }
 

@@ -2,11 +2,273 @@ package rules;
 dialect "java"
 
 import com.lyy.stock.test.entity.po.*;
+import java.util.List;
+import java.util.ArrayList
+
+//rule "评估用户1"
+//    no-loop true
+////    lock-on-active true
+////    activation-group "amountJudgment"
+////    agenda-group "test-group1"
+//    when
+//      $u : StockTest(name == "李")
+//    then
+//      $u.setId(999L);
+////      $u.setName("赵");
+////      update($u)
+//      System.err.println("用户1"+$u.getName());
+//end
+//
+//
+//rule "评估用户2"
+//    salience 2
+//    no-loop true
+////    lock-on-active true
+////    activation-group "amountJudgment"
+////    agenda-group "test-group"
+//    when
+//      $u : StockTest(name == "赵")
+//    then
+//      $u.setName("李");
+//      update($u)
+//      System.err.println("用户2"+$u.getName());
+//end
+//
+//
+//rule "评估用户3"
+//    no-loop true
+////    lock-on-active true
+////    activation-group "amountJudgment"
+////    agenda-group "test-group3"
+//    when
+//      $u : StockTest(name == "李")
+//    then
+//      $u.setId(999L);
+////      $u.setName("赵");
+////      update($u)
+//      System.err.println("用户3"+$u.getName());
+//end
 
 
-rule "评估用户"
-when
-  $u : StockTest(name == "张" || name == "李")
-then
-  System.err.println("用户"+$u.getName());
- end
+//rule "timer-1"
+//    timer (3s 2s)
+//    when
+//
+//    then
+//      System.err.println("执行了评估用户4定时");
+//end
+//
+//
+//rule "timer-2"
+//    timer (cron:0/1 * * * * ?) //含义：每隔1秒触发一次
+//     when
+//
+//     then
+//       System.err.println("执行了评估用户5定时");
+//end
+//
+//
+//rule "date-effective-1"
+//    date-effective "2023-4-25 19:19:26"
+//    when
+//    then
+//    System.out.println("执行了date-effective-1");
+//end
+//
+//rule "date-expires-1"
+//    date-expires "2023-4-25 19:19:26"
+//    when
+//    then
+//    System.out.println("执行了date-expires-1");
+//end
+//
+//
+//rule "ruleflow-group-1"
+//    ruleflow-group "ruleflow-1"
+//    when
+//    then
+//    System.out.println("执行了ruleflow-group-1");
+//end
+//
+//rule "ruleflow-group-2"
+//    ruleflow-group "ruleflow-1"
+//    when
+//    then
+//    System.out.println("执行了ruleflow-group-2");
+//end
+
+//rule "contains-1"
+//    when
+//        $u:StockTest(name contains "李")
+//    then
+//    System.out.println("执行了contains-1");
+//end
+//
+//rule "not-contains-1"
+//    when
+//        $u:StockTest(name not contains "李")
+//    then
+//    System.out.println("执行了not-contains-1");
+//end
+
+//rule "memberOf-1"
+//    when
+//        $u:StockTest(name memberOf ["李","张"])
+//    then
+//        System.out.println("执行了memberOf-1");
+//end
+//
+//
+//rule "not-menberOf-1"
+//    when
+//        $u:StockTest(name not memberOf ["李","张"])
+//    then
+//        System.out.println("执行了not-menberOf-1");
+//end
+
+//rule "matches-1"
+//    when
+//        $u:StockTest(name matches "李.*")
+//    then
+//        System.out.println("执行了matches-1");
+//end
+//
+//rule "not-matches-1"
+//    when
+//        $u:StockTest(name not matches "李.*")
+//    then
+//        System.out.println("执行了not-matches-1");
+//end
+
+//rule "insert-1"
+//    when
+//        $u:StockTest(name=="李")
+//    then
+//        StockTest s = new StockTest();
+//        s.setId(11L);
+//        s.setName("吴");
+//        insert(s);
+//        System.out.println("执行了insert-1");
+//end
+//
+//
+//rule "retract-1"
+//    when
+//        $u:StockTest(name=="吴")
+//    then
+//        retract($u)
+//        System.out.println("执行了retract-1");
+//end
+
+//global Integer count
+//global List gList
+//
+//rule "global-1"
+//    when
+//
+//    then
+//        count+=10;
+//        gList.add("礼拜");
+//        System.out.println("执行了global-1");
+//        System.out.println("count="+count);
+//        System.out.println("gList="+gList);
+//end
+//
+//rule "global-2"
+//    when
+//
+//    then
+//        System.out.println("执行了global-2");
+//        System.out.println("count="+count);
+//        System.out.println("gList="+gList);
+//end
+
+//query "query-1"
+//    $u:StockTest(name=="李")
+//end
+//
+//query "query-2"(String sname)
+//    $u:StockTest(name.equals(sname))
+//end
+
+//function String covertName(String name){
+//    return name = "吴";
+//}
+//
+//rule "function-1"
+//    when
+//        $u:StockTest(name=="李")
+//    then
+//        String s = covertName($u.getName());
+//        System.out.println("执行了function-1");
+//        System.out.println(s);
+//end
+
+
+//rule "in-1" extends "extends-1"
+//    when
+//        $u:StockTest(name in ("李","张"))
+//    then
+//        System.out.println("执行了in-1");
+//end
+
+//rule "not-in-1"
+//    when
+//        $u:StockTest(name not in ("李","张"))
+//    then
+//        System.out.println("执行了not-in-1");
+//end
+
+//rule "eval-1"
+//    when
+//        $u:StockTest()
+//        eval($u.getName() == "李")
+//    then
+//        System.out.println("执行了eval-1");
+//end
+
+//rule "not-1"
+//    when
+//        not Integer()
+//    then
+//        System.out.println("执行了not-1");
+//end
+
+//rule "exists-1"
+//    when
+//        exists StockTest()
+//    then
+//        System.out.println("执行了exists-1");
+//end
+
+//rule "extends-1"
+//    when
+//        $p:StockTest(name == "赵")
+//    then
+//        System.out.println("执行了extends-1");
+//end
+
+
+//rule "getWorkingMemory-1"
+//    when
+//    then
+//        WorkingMemory workingMemory = getWorkingMemory();
+//        System.out.println("执行了getWorkingMemory-1");
+//        System.out.println(workingMemory);
+//end
+//
+//rule "halt-1"
+//    enabled false
+//    when
+//    then
+//        halt();
+//        System.out.println("执行了halt-1");
+//end
+//
+//rule "getRule-1"
+//    when
+//    then
+//        org.drools.core.definitions.rule.impl.RuleImpl rule = getRule();
+//        System.out.println("执行了getRule-1");
+//        System.out.println(rule);
+//end
