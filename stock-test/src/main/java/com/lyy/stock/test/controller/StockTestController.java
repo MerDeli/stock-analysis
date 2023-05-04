@@ -3,9 +3,7 @@ package com.lyy.stock.test.controller;
 import com.lyy.stock.test.entity.po.StockTest;
 import com.lyy.stock.test.service.StockTestService;
 import com.lyy.stock.test.service.impl.ReloadDroolsRules;
-import com.lyy.stock.test.service.impl.RuleEngineService;
 import lombok.extern.slf4j.Slf4j;
-import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieFileSystem;
 import org.kie.api.builder.model.KieBaseModel;
@@ -19,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import utils.KieUtils;
 
-import java.util.ArrayList;
 
 /**
  * <p>
@@ -36,9 +33,6 @@ public class StockTestController {
 
     @Autowired
     private StockTestService stockTestService;
-
-    @Autowired
-    private RuleEngineService ruleEngineService;
 
     @Autowired
     private ReloadDroolsRules reloadDroolsRules;
@@ -70,7 +64,6 @@ public class StockTestController {
         KieUtils.getKieSession().insert(queryParam1) ;
         KieUtils.getKieSession().insert(queryParam2) ;
         KieUtils.getKieSession().insert(queryParam3) ;
-        KieUtils.getKieSession().insert(this.ruleEngineService) ;
         // 返参
 //        KieUtils.getKieSession().getAgenda().getAgendaGroup("test-group3").setFocus();
 //        KieUtils.getKieSession().setGlobal("count",100);
