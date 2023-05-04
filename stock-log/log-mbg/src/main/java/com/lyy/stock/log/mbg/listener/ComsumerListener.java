@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @version:
  * @Description:
  */
-@RocketMQMessageListener(topic = "test-topic",nameServer = "${rocketmq.nameServer}",consumerGroup = "${rocketmq.consumer.group}", selectorExpression = "test-tag")
+@RocketMQMessageListener(topic = "test-topic",nameServer = "${rocketmq.nameServer}",consumerGroup = "${rocketmq.consumer.group}", selectorExpression = "*")
 @Component
 @Slf4j
 public class ComsumerListener implements RocketMQListener<MessageBody> {

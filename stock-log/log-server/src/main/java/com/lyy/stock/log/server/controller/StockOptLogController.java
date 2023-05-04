@@ -96,7 +96,13 @@ public class StockOptLogController {
 
     @GetMapping("/test")
     public void test(){
-        mqProducterComponent.oneWaySendMsg("test-topic:test-tag",11111,"22222");
+        mqProducterComponent.oneWaySendMsg("test-topic:test-oneWay",11111,"22222");
+        mqProducterComponent.oneWaySendOrderlyMsg("test-topic:test-oneWay-orderly",11111,"22222","1");
+        mqProducterComponent.syncSendMsg("test-topic:test-sync",11111,"22222",null,null);
+        mqProducterComponent.syncSendOrderlyMsg("test-topic:test-sync-orderly",11111,"22222",null,1,"1");
+        mqProducterComponent.asyncSendMsg("test-topic:test-async",11111,"22222",null,null);
+        mqProducterComponent.asyncSendOrderlyMsg("test-topic:test-async-orderly",11111,"22222",null,1,"1");
+        mqProducterComponent.transactionSendMsg("test-topic:test-transaction",11111,"22222");
     }
 
 }
