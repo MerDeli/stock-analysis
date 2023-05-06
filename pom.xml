@@ -68,6 +68,7 @@
         <module>stock-test</module>
         <module>stock-sms</module>
         <module>stock-flowable</module>
+        <module>stock-websocket</module>
     </modules>
 
     <dependencyManagement>
