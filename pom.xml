@@ -54,6 +54,7 @@
         <seata-all.version>1.6.1</seata-all.version>
         <canal-spring-boot-starter.version>1.2.1-RELEASE</canal-spring-boot-starter.version>
         <fast-drools-spring-boot-starter.version>8.0.9</fast-drools-spring-boot-starter.version>
+        <flowable-spring-boot-starter.version>6.8.0</flowable-spring-boot-starter.version>
     </properties>
 
     <modules>
@@ -66,6 +67,7 @@
         <module>stock-data</module>
         <module>stock-test</module>
         <module>stock-sms</module>
+        <module>stock-flowable</module>
     </modules>
 
     <dependencyManagement>
@@ -254,6 +256,13 @@
                 <groupId>com.github.hongwen1993</groupId>
                 <artifactId>fast-drools-spring-boot-starter</artifactId>
                 <version>${fast-drools-spring-boot-starter.version}</version>
+            </dependency>
+
+            <!-- flowable工作流引擎 -->
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter</artifactId>
+                <version>${flowable-spring-boot-starter.version}</version>
             </dependency>
 
             <!--项目子模块-->
