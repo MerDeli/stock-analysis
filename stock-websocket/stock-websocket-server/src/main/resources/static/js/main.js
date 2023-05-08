@@ -26,7 +26,8 @@ function connect(event) {
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
 
-        stompClient.connect({}, onConnected, onError);
+        // 添加了{name:username},点对点发送时，需要用户连接的时候就直接将用户信息携带注册到accessor.setUser()方法中
+        stompClient.connect({name:username}, onConnected, onError);
     }
     event.preventDefault();
 }
@@ -35,6 +36,7 @@ function connect(event) {
 function onConnected() {
     // Subscribe to the Public Topic
     stompClient.subscribe('/topic/public', onMessageReceived);
+    stompClient.subscribe('/user/queue/public', onMessageReceived);
 
     // Tell your username to the server
     stompClient.send("/app/chat.addUser",

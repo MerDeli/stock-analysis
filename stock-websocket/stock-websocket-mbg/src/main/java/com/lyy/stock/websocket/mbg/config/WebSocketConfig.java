@@ -1,6 +1,8 @@
 package com.lyy.stock.websocket.mbg.config;
 
+import com.lyy.stock.websocket.mbg.interceptor.UserInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
@@ -26,7 +28,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         registry.setApplicationDestinationPrefixes("/app");
 
         // Enables a simple in-memory broker
-        registry.enableSimpleBroker("/topic");
+        registry.enableSimpleBroker("/topic","/queue");
+
+        registry.setUserDestinationPrefix("/user/");
 
 
         //   Use this for enabling a Full featured broker like RabbitMQ
@@ -37,5 +41,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                 .setClientLogin("guest")
                 .setClientPasscode("guest");
         */
+    }
+
+    @Override
+    public void configureClientInboundChannel(ChannelRegistration registration) {
+        registration.setInterceptors(new UserInterceptor());
     }
 }

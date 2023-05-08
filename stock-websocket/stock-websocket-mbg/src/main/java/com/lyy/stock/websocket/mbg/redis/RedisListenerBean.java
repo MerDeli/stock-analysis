@@ -44,7 +44,7 @@ public class RedisListenerBean {
         container.setConnectionFactory(connectionFactory);
 
         // 监听msgToAll
-//        container.addMessageListener(listenerAdapter, new PatternTopic(msgToAll));
+        container.addMessageListener(listenerAdapter, new PatternTopic(msgToAll));
         container.addMessageListener(listenerAdapter, new PatternTopic(userStatus));
         LOGGER.info("Subscribed Redis channel: " + msgToAll);
         return container;

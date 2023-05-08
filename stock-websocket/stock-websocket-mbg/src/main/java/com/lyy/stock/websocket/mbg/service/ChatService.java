@@ -6,7 +6,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.messaging.simp.user.SimpUser;
+import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 /**
  * @Author:
@@ -22,9 +26,15 @@ public class ChatService {
     @Autowired
     private SimpMessageSendingOperations simpMessageSendingOperations;
 
+    @Autowired
+    private SimpUserRegistry simpUserRegistry;
+
     public void sendMsg(@Payload ChatMessage chatMessage) {
+        Set<SimpUser> users = simpUserRegistry.getUsers();
         LOGGER.info("Send msg by simpMessageSendingOperations:" + chatMessage.toString());
-        simpMessageSendingOperations.convertAndSend("/topic/public", chatMessage);
+//        simpMessageSendingOperations.convertAndSend("/topic/public", chatMessage);
+        String name = users.stream().findFirst().get().getName();
+        simpMessageSendingOperations.convertAndSendToUser(name,"/queue/public", chatMessage);
     }
 
     public void alertUserStatus(@Payload ChatMessage chatMessage) {
